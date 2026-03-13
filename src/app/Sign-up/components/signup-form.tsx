@@ -16,8 +16,9 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { axiosInstance } from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -37,7 +38,6 @@ const formSchema = z.object({
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,23 +48,28 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
     },
   })
 
+
+  const { mutateAsync: register, isPending } = useMutation({
+        mutationFn: async (data: z.infer<typeof formSchema>) => {
+            const result = await axiosInstance.post("/api/users/login", {
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                confirmPassword: data.confirmpassword
+            });
+            return result.data;
+        },
+        onSuccess: () => {
+            toast.success("register successful");
+            router.push("/login");
+        },
+        onError: () => {
+            toast.error("register failed, try again later.")
+        }
+    });
+
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    try {
-      setLoading(true);
-      await axios.post("https://brightmitten-us.backendless.app/api/users/register", {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        confirmPassword: data.confirmpassword
-      }
-      );
-      toast.success("registration successful.")
-      router.push("/login");
-    } catch (error) {
-      toast.error("registration failed, try again later.")
-    } finally {
-        setLoading(false);
-    }
+    await register(data);
   }
   return (
     <Card {...props}>
@@ -160,8 +165,8 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
 
             <FieldGroup>
               <Field>
-                <Button type="submit" form="form-sign-up" disabled={loading}>
-                  {loading ? "Loading..." : "Create Account"}
+                <Button type="submit" form="form-sign-up" disabled={isPending}>
+                  {isPending ? "Loading..." : "Create Account"}
                 </Button>
                 <FieldDescription className="px-6 text-center">
                   Already have an account? <a href="sign-in">Sign in</a>
