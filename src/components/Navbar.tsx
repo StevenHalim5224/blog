@@ -1,8 +1,7 @@
 "use client"
-import { useAuth } from '@/stores/auth'
-import { Button } from './ui/button'
+import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { useSession, signOut } from 'next-auth/react'
+import { Button } from './ui/button'
 
 const navbar = () => {
     const session = useSession()

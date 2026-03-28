@@ -3,19 +3,20 @@ import { Blog } from "@/types/blog";
 import { format } from "date-fns";
 import Image from "next/image";
 import { cache } from "react";
+import DeleteButton from "@/components/deleteButton";
 
 interface ArticleDetailprops {
   params: Promise<{ objectid: string }>;
 }
 
-const getArticle = cache (async (objectid: string) => {
+const getArticle = cache(async (objectid: string) => {
   const response = await fetch(`https://brightmitten-us.backendless.app/api/data/blogs/${objectid}`);
   const blog: Blog = await response.json();
   return blog
 });
 
 export const generateMetadata = async (props: ArticleDetailprops) => {
-  const {objectid} = await props.params;
+  const { objectid } = await props.params;
   const blog = await getArticle(objectid);
 
   return {
@@ -45,6 +46,10 @@ const ArticleDetail = async (props: ArticleDetailprops) => {
         <p>
           {blog.Content}
         </p>
+
+        <div className="mt-8 mb-8">
+          <DeleteButton objectId={objectid} />
+        </div>
       </div>
     </div>
   );
