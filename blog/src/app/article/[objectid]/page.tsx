@@ -86,7 +86,7 @@ const ArticleDetail = async (props: ArticleDetailprops) => {
           </div>
         )}
         <div className="leading-relaxed text-lg prose max-w-none"
-          dangerouslySetInnerHTML={{__html: blog.content}}
+          dangerouslySetInnerHTML={{__html: blog.content || ""}}
         />
 
         <ArticleActions objectId={objectid} authorId={blog.authorId}/>

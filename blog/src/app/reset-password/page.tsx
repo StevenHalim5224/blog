@@ -36,7 +36,7 @@ function ResetFormContent() {
                 setMessage(data.message);
                 setIsError(false)
 
-                setTimeout(() =>{
+                setTimeout(() => {
                     router.push("/login");
                 }, 2000)
             } else {
