@@ -11,9 +11,6 @@ app.use(cors());
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("berjalan di vercel");
-});
 
 app.use("/users", userRouter);
 app.use("/articles", articleRouter);
