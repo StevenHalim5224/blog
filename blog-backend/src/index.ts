@@ -18,6 +18,10 @@ app.get("/", (req, res) => {
 app.use("/users", userRouter);
 app.use("/articles", articleRouter);
 
-app.listen(port, () => {
-  console.log(`server is running on port ${port}`);
-});
+if (process.env.NODE_ENV !== 'production'){
+  app.listen(port, () => {
+    console.log(`server is running on port ${port}`);
+  });
+}
+
+export default app
