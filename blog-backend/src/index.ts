@@ -7,7 +7,15 @@ import cors from "cors";
 const app = express();
 const port = 3000;
 
-app.use(cors());
+app.use(cors({
+
+  origin: [
+    "https://blogfood-theta.vercel.app"
+  ],
+  credentials: true
+}));
+
+
 
 app.use(express.json());
 
