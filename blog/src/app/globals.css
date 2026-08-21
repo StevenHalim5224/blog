@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "shadcn/tailwind.css"; 
 
 @custom-variant dark (&:is(.dark *));
 
@@ -122,4 +121,6 @@
   body {
     @apply bg-background text-foreground;
   }
+  
 }
+
