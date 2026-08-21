@@ -1,6 +1,7 @@
 "use client"
 
 import { Suspense, useState } from "react"
+import { axiosInstance } from "@/lib/axios"
 
 export default function ForgotPasswordPage() {
     const [email, setEmail] = useState("");
@@ -15,17 +16,10 @@ export default function ForgotPasswordPage() {
         setIsError(false)
 
         try{
-            const res = await fetch("http://localhost:3000/forgot-password", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email }),
-            });
+            const response = await axiosInstance.post("/forgot-password", { email });
+            const data = response.data;
 
-            const data = await res.json();
-
-            if (res.ok) {
+            if (response.status >= 200 && response.status < 300) {
                 setMessage("Link reset password has been sent to your email");
                 setIsError(false)
             }else {

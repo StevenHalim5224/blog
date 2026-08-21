@@ -1,6 +1,7 @@
 "use client"
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { axiosInstance } from "@/lib/axios"
 
 import { Suspense, useState } from "react"
 
@@ -28,17 +29,10 @@ function ResetFormContent() {
         }
 
         try {
-            const res = await fetch("http://localhost:3000/reset-password", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ token, newPassword }),
-            });
+            const response = await axiosInstance.post("/reset-password", { token, newPassword });
+            const data = response.data;
 
-            const data = await res.json();
-
-            if (res.ok) {
+            if (response.status >= 200 && response.status < 300) {
                 setMessage(data.message);
                 setIsError(false)
 

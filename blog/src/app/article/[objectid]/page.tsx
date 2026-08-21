@@ -14,7 +14,7 @@ interface ArticleDetailprops {
 
 const getArticle = cache(async (objectid: string) => {
   try{
-    const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_API_URL}/articles`,{
+    const response = await axiosInstance.get(`/articles/${objectid}`,{
       headers:{
         'Cache-Control': 'no-store'
       }
