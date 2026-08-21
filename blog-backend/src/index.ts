@@ -10,7 +10,7 @@ const port = 3000;
 app.use(cors({
 
   origin: [
-    "https://blogfood-theta.vercel.app"
+    "https://blogfood-7dqw-fzynshzr0-stevenhalim5224s-projects.vercel.app"
   ],
   credentials: true
 }));
