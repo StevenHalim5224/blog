@@ -25,35 +25,36 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const {onAuthSuccess} = useAuth();
+  const { onAuthSuccess } = useAuth();
   const router = useRouter()
 
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("") 
+  const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState("")
 
-  const handleSubmit= async (e: SyntheticEvent) => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    setErrorMsg ("")
-    
-    try{
-      const response = await axiosInstance.post('/login', {
+    setErrorMsg("")
+
+    try {
+      const response = await axiosInstance.post('/users/login', {
         email,
         password,
       })
-      
-      const {token,user} = response.data
+
+      const { token, user } = response.data
       onAuthSuccess(user, token)
-      
+
       router.push("/")
     } catch (error: any) {
-    setErrorMsg(error.response?.data?.message || "An error occurred while logging in")
-  } finally {
-    setIsLoading(false)
+      setErrorMsg(error.response?.data?.message || "An error occurred while logging in")
+    } finally {
+      setIsLoading(false)
+    }
   }
-}
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -64,10 +65,10 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit = {handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <FieldGroup>
               {errorMsg && (
-                <div className = "text-sm text-red-600 font-medium bg-red-50 p-3 rounded-md text-center" >
+                <div className="text-sm text-red-600 font-medium bg-red-50 p-3 rounded-md text-center" >
                   {errorMsg}
                 </div>
               )}
@@ -78,9 +79,9 @@ export function LoginForm({
                   type="email"
                   placeholder="m@example.com"
                   value={email}
-                  onChange= {(e) => setEmail(e.target.value)} 
+                  onChange={(e) => setEmail(e.target.value)}
                   required
-                  disabled= {isLoading}
+                  disabled={isLoading}
                 />
               </Field>
               <Field>
@@ -97,10 +98,10 @@ export function LoginForm({
                   id="password"
                   type="password"
                   value={password}
-                  onChange={(e) => setPassword (e.target.value)}
-                  required 
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                   disabled={isLoading}
-                 />
+                />
               </Field>
               <Field>
                 <Button type="submit" disabled={isLoading}>Login</Button>
@@ -108,7 +109,7 @@ export function LoginForm({
                   Login with Google
                 </Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="/blog/Sign-up">Sign up</a>
+                  Don&apos;t have an account? <a href="/sign-up">Sign up</a>
                 </FieldDescription>
               </Field>
             </FieldGroup>

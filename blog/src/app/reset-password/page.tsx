@@ -29,7 +29,7 @@ function ResetFormContent() {
         }
 
         try {
-            const response = await axiosInstance.post("/reset-password", { token, newPassword });
+            const response = await axiosInstance.post("/users/reset-password", { token, newPassword });
             const data = response.data;
 
             if (response.status >= 200 && response.status < 300) {

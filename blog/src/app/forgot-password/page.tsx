@@ -16,7 +16,7 @@ export default function ForgotPasswordPage() {
         setIsError(false)
 
         try{
-            const response = await axiosInstance.post("/forgot-password", { email });
+            const response = await axiosInstance.post("/users/forgot-password", { email });
             const data = response.data;
 
             if (response.status >= 200 && response.status < 300) {

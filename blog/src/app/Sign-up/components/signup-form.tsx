@@ -51,7 +51,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
 
   const { mutateAsync: register, isPending } = useMutation({
         mutationFn: async (data: z.infer<typeof formSchema>) => {
-            const result = await axiosInstance.post("/register", {
+            const result = await axiosInstance.post("/users/register", {
                 name: data.name,
                 email: data.email,
                 password: data.password,
