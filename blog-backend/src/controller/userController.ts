@@ -119,7 +119,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
       }
     })
 
-    const resetUrl = `http://localhost:3001/blog/reset-password?token=${resetToken}`;
+    const resetUrl = `http://localhost:3001/reset-password?token=${resetToken}`;
 
     const message = `
     <h2> Reset Your Password </h2>

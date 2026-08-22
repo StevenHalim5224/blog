@@ -15,7 +15,7 @@ export const sendEmail = async (options: EmailOptions) => {
     });
 
     const mailOptions = {
-        from: '" Blog App Admin<YOUR_EMAIL_ADDRESS>"',
+        from: '" Blog App Admin" <${YOUR_EMAIL_ADDRESS}>',
         to: options.email,
         subject: options.subject,
         html: options.message,
