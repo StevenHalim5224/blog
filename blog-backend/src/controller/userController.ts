@@ -121,7 +121,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3001";
 
-   const resetUrl = `${frontendUrl}/reset-password?token = ${resetToken}`;
+   const resetUrl = `${frontendUrl}/reset-password?token=${resetToken}`;
 
     const message = `
     <h2> Reset Your Password </h2>
