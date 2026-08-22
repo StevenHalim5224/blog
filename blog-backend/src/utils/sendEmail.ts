@@ -6,8 +6,12 @@ interface EmailOptions{
 }
 
 export const sendEmail = async (options: EmailOptions) => {
+    console.log("cek Email user", process.env.EMAIL_USER ? "ada" : "kosong")
+    console.log("cek Email pass", process.env.EMAIL_PASS ? "ada" : "kosong")
     const transporter = nodemailer.createTransport({
         service:'gmail',
+        port: 465,
+        secure: true,
         auth:{
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
