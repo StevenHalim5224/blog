@@ -66,6 +66,8 @@ const WritePage = () => {
                 difficulty: data.difficulty
             });
 
+            router.push("/")
+
             toast.success("Blog has been created successfully!");
         } catch (error) {
             if (axios.isAxiosError(error)) {
