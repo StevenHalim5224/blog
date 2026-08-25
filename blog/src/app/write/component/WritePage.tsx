@@ -67,7 +67,6 @@ const WritePage = () => {
             });
 
             toast.success("Blog has been created successfully!");
-            window.location.href = "/blog";
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 const backendError = error.response?.data?.errors?.[0]?.msg || error.response?.data?.message || "An error occured from server!"
