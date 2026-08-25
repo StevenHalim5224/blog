@@ -19,8 +19,8 @@ function DeleteButton({ objectId }: { objectId: string }) {
         try {
             await axiosInstance.delete(`/articles/${objectId}`);
 
+            window.location.href=("/")
             toast.success("success deleting blog");
-            window.location.href = "/blog";
 
         } catch (error) {
             console.log("error");

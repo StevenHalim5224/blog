@@ -75,7 +75,7 @@ const EditPage = () => {
                     });
                 } catch (error) {
                     toast.error("failed to get article data, please try again");
-                    router.push("/blog");
+                    router.push("/");
                 } finally {
                     setIsFetching(false);
                 }
@@ -99,7 +99,7 @@ const EditPage = () => {
             });
 
             toast.success("Blog has been updated successfully!");
-            window.location.href = "/blog";
+            window.location.href = "/";
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 const backendError = error.response?.data?.errors?.[0]?.msg || error.response?.data?.message || "An error occured from server!"

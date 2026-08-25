@@ -66,7 +66,7 @@ const WritePage = () => {
                 difficulty: data.difficulty
             });
 
-            router.push("/")
+            window.location.href=("/")
 
             toast.success("Blog has been created successfully!");
         } catch (error) {
